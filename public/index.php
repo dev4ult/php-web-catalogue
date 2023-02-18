@@ -45,31 +45,32 @@ session_start();
             <div>
                 <form action="" method="post" class="flex">
                     <input type="text" name="search-value"
-                        class="border-black border-2 px-2 py-1 rounded-full mr-2 focus:outline-none" value="<?php
-if (isset($_GET['src'])) {
-    echo $_GET['src'];
-}
-?>">
+                        class="border-black border-2 px-2 py-1 rounded-full mr-2 focus:outline-none"
+                        value="<?php
+                                                                                                                                                if (isset($_GET['src'])) {
+                                                                                                                                                    echo $_GET['src'];
+                                                                                                                                                }
+                                                                                                                                                ?>">
                     <button type="submit" name="search-submit">
                         <img src="image/logo/search.svg" alt="searh button">
                     </button>
                 </form>
                 <?php
-if (isset($_GET['idc'])) {
-    if (isset($_POST['search-submit'])) {
-        echo '<script>window.location="index.php?idc=' . $_GET['idc'] . '&src=' . $_POST['search-value'] . '"</script>';
-    }
-} else {
-    if (isset($_POST['search-submit'])) {
-        echo '<script>window.location="index.php?src=' . $_POST['search-value'] . '"</script>';
-    }
-}
-?>
+                if (isset($_GET['idc'])) {
+                    if (isset($_POST['search-submit'])) {
+                        echo '<script>window.location="index.php?idc=' . $_GET['idc'] . '&src=' . $_POST['search-value'] . '"</script>';
+                    }
+                } else {
+                    if (isset($_POST['search-submit'])) {
+                        echo '<script>window.location="index.php?src=' . $_POST['search-value'] . '"</script>';
+                    }
+                }
+                ?>
             </div>
             <div>
                 <ul class="flex">
                     <?php
-if (isset($_SESSION['status_login']) && $_SESSION['status_login'] == true): ?>
+                    if (isset($_SESSION['status_login']) && $_SESSION['status_login'] == true) : ?>
                     <li><a href="profile.php"
                             class="text-2xl font-semibold ml-10 py-1 px-3 rounded-lg hover:bg-slate-200">Profile</a>
                     </li>
@@ -82,10 +83,10 @@ if (isset($_SESSION['status_login']) && $_SESSION['status_login'] == true): ?>
                     <li><a href="logout.php"
                             class="text-2xl font-semibold ml-10 py-1 px-3 rounded-lg hover:bg-slate-200">Log
                             out</a></li>
-                    <?php else: ?>
+                    <?php else : ?>
                     <li><a href="login.php"
                             class="text-2xl font-semibold ml-10 py-1 px-3 rounded-lg hover:bg-slate-200">Login</a></li>
-                    <?php endif;?>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -97,87 +98,89 @@ if (isset($_SESSION['status_login']) && $_SESSION['status_login'] == true): ?>
             <div class="flex flex-wrap gap-2">
                 <div>
                     <?php
-if (isset($_GET['idc'])):
-?>
+                    if (isset($_GET['idc'])) :
+                    ?>
                     <a href="index.php"
                         class="inline-block  text-xl py-0.5 px-3 border-2 border-black  font-semibold cursor-pointer overflow-hidden bg-gradient-to-r from-black to-black bg-no-repeat bg-[length:0%_100%] bg-left hover:bg-[length:100%_100%] hover:text-white transition-all duration-300">ALL</a>
-                    <?php else: ?>
+                    <?php else : ?>
                     <a href="index.php"
                         class="inline-block  text-xl py-0.5 px-3 border-2 border-black  font-semibold cursor-pointer overflow-hidden bg-gradient-to-r from-black to-black bg-no-repeat bg-[length:100%_100%] bg-left hover:bg-[length:100%_100%] text-white transition-all duration-300">ALL</a>
-                    <?php endif;?>
+                    <?php endif; ?>
                 </div>
                 <?php
-$category = mysqli_query($conn, "SELECT * FROM category ORDER BY category_id");
-if (mysqli_num_rows($category) > 0):
-    while ($k = mysqli_fetch_array($category)): ?>
+                $category = mysqli_query($conn, "SELECT * FROM category ORDER BY category_id");
+                if (mysqli_num_rows($category) > 0) :
+                    while ($k = mysqli_fetch_array($category)) : ?>
                 <div>
                     <?php
-    if (isset($_GET['idc']) && $k['category_id'] == $_GET['idc']):
-    ?>
+                            if (isset($_GET['idc']) && $k['category_id'] == $_GET['idc']) :
+                            ?>
                     <a href="index.php?idc=<?php
-    if (isset($_GET['src'])) {
-        echo $k['category_id'] . '&src=' . $_GET['src'];
-    } else {
-        echo $k['category_id'];
-    }
-    ?>" class="inline-block text-xl py-0.5 px-3 border-2 border-black  font-semibold cursor-pointer overflow-hidden bg-gradient-to-r from-black to-black bg-no-repeat bg-[length:100%_100%] bg-left hover:bg-[length:100%_100%] text-white transition-all duration-300"><?=$k['category_name']?></a>
-                    <?php else: ?>
+                                                        if (isset($_GET['src'])) {
+                                                            echo $k['category_id'] . '&src=' . $_GET['src'];
+                                                        } else {
+                                                            echo $k['category_id'];
+                                                        }
+                                                        ?>"
+                        class="inline-block text-xl py-0.5 px-3 border-2 border-black  font-semibold cursor-pointer overflow-hidden bg-gradient-to-r from-black to-black bg-no-repeat bg-[length:100%_100%] bg-left hover:bg-[length:100%_100%] text-white transition-all duration-300"><?= $k['category_name'] ?></a>
+                    <?php else : ?>
                     <a href="index.php?idc=<?php
-if (isset($_GET['src'])) {
-    echo $k['category_id'] . '&src=' . $_GET['src'];
-} else {
-    echo $k['category_id'];
-}
-?>" class="inline-block text-xl py-0.5 px-3 border-2 border-black  font-semibold cursor-pointer overflow-hidden bg-gradient-to-r from-black to-black bg-no-repeat bg-[length:0%_100%] bg-left hover:bg-[length:100%_100%] hover:text-white transition-all duration-300"><?=$k['category_name']?></a>
-                    <?php endif;?>
+                                                        if (isset($_GET['src'])) {
+                                                            echo $k['category_id'] . '&src=' . $_GET['src'];
+                                                        } else {
+                                                            echo $k['category_id'];
+                                                        }
+                                                        ?>"
+                        class="inline-block text-xl py-0.5 px-3 border-2 border-black  font-semibold cursor-pointer overflow-hidden bg-gradient-to-r from-black to-black bg-no-repeat bg-[length:0%_100%] bg-left hover:bg-[length:100%_100%] hover:text-white transition-all duration-300"><?= $k['category_name'] ?></a>
+                    <?php endif; ?>
                 </div>
-                <?php endwhile;?>
-                <?php else: ?>
+                <?php endwhile; ?>
+                <?php else : ?>
                 <h2 class="text-xl">
                     no category can be showed
                 </h2>
-                <?php endif;?>
+                <?php endif; ?>
             </div>
         </section>
         <section class="container mx-auto mt-10">
             <h2 class="text-2xl font-semibold mb-2">Product</h2>
             <div class="flex gap-3 flex-wrap ">
                 <?php
-if (!isset($_GET['src']) || $_GET['src'] == '') {
-    if (isset($_GET['idc'])) {
-        $product = mysqli_query($conn, "SELECT * FROM product WHERE category_id = '" . $_GET['idc'] . "' ORDER BY product_id");
-    } else {
-        $product = mysqli_query($conn, "SELECT * FROM product ORDER BY product_id");
-    }
-} else {
-    if (isset($_GET['idc'])) {
-        $product = mysqli_query($conn, "SELECT * FROM product WHERE category_id = '" . $_GET['idc'] . "' AND product_name LIKE '%" . $_GET['src'] . "%' ORDER BY product_id");
-    } else {
-        $product = mysqli_query($conn, "SELECT * FROM product WHERE product_name LIKE '%" . $_GET['src'] . "%' ORDER BY product_id");
-    }
-}
-if (mysqli_num_rows($product) > 0):
-    while ($p = mysqli_fetch_array($product)):
-    ?>
+                if (!isset($_GET['src']) || $_GET['src'] == '') {
+                    if (isset($_GET['idc'])) {
+                        $product = mysqli_query($conn, "SELECT * FROM product WHERE category_id = '" . $_GET['idc'] . "' ORDER BY product_id");
+                    } else {
+                        $product = mysqli_query($conn, "SELECT * FROM product ORDER BY product_id");
+                    }
+                } else {
+                    if (isset($_GET['idc'])) {
+                        $product = mysqli_query($conn, "SELECT * FROM product WHERE category_id = '" . $_GET['idc'] . "' AND product_name LIKE '%" . $_GET['src'] . "%' ORDER BY product_id");
+                    } else {
+                        $product = mysqli_query($conn, "SELECT * FROM product WHERE product_name LIKE '%" . $_GET['src'] . "%' ORDER BY product_id");
+                    }
+                }
+                if (mysqli_num_rows($product) > 0) :
+                    while ($p = mysqli_fetch_array($product)) :
+                ?>
                 <div
                     class="card bg-white shadow-xl max-w-[235px] grow shrink-0 min-h-[320px] min-w-[235px] rounded-xl overflow-hidden group relative">
-                    <img src="image/product-img/<?=$p['product_image'];?>" alt=""
+                    <img src="image/product-img/<?= $p['product_image']; ?>" alt=""
                         class=" max-w-full bg-cover w-60 h-60 object-cover">
                     <hr class="border none bg-black h-1 mt-2.5 w-1/2 mx-auto group-hover:w-4/5 transition-all">
-                    <h2 class="ml-3 mt-1 font-semibold "><?=$p['product_name'];?></h2>
-                    <h2 class="text-right mr-3 font-bold ">$<?=$p['product_price'];?></h2>
+                    <h2 class="ml-3 mt-1 font-semibold "><?= $p['product_name']; ?></h2>
+                    <h2 class="text-right mr-3 font-bold ">$<?= $p['product_price']; ?></h2>
                     <a
                         class="add-cart-button bg-black rounded-lg absolute -bottom-7 left-2 px-2 cursor-pointer font-semibold text-white group-hover:bottom-2.5 transition-all duration-300">Buy
                         now</a>
                 </div>
-                <?php endwhile;?>
-                <?php else: ?>
+                <?php endwhile; ?>
+                <?php else : ?>
                 <div class="">
                     <h2 class="text-xl">
                         no product can be showed
                     </h2>
                 </div>
-                <?php endif;?>
+                <?php endif; ?>
             </div>
         </section>
     </main>
